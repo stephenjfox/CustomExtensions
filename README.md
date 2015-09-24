@@ -9,7 +9,7 @@ Build the source into a standard (non-executeable .jar)
 - Emulation of a C#-styleInt.TryParse()
   - The implementation is fare from perfect, 
 - Covers some of the bases overlooked but Google's Guava
-  Though, the code isn't as impressive, mind you
+- Though, the code isn't as impressive, mind you
 
 ### Where it is
 As of 24/09/2015, it's useable.
