@@ -1,5 +1,7 @@
 package com.fox.collections;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,5 +24,23 @@ public class ListExtension
             if (item != null) count++;
         }
         return count;
+    }
+
+    public static <T> ArrayList<T> newArrayList() {
+        return new ArrayList<>();
+    }
+
+    public static <T> ArrayList<T> newArrayList( Iterable<T> items ) {
+        ArrayList<T> list = new ArrayList<>();
+        items.forEach(list::add);
+
+        return list;
+    }
+
+    public static <T> ArrayList<T> newArrayList( Iterator<T> iterator ) {
+        ArrayList<T> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+
+        return list;
     }
 }
