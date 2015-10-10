@@ -11,10 +11,10 @@ public class Integers {
 
         try {
             Integer i = Integer.parseInt(str);
-            return Tuple.Create(true, i);
+            return Tuple.create(true, i);
         }
         catch (Exception e) {
-            return Tuple.Create(false, null);
+            return Tuple.create(false, null);
         }
 
     }

@@ -11,9 +11,9 @@ public class Shorts {
 
         try {
             Short s = Short.parseShort(str);
-            return Tuple.Create(true, s);
+            return Tuple.create(true, s);
         } catch (Exception e) {
-            return Tuple.Create(false, null);
+            return Tuple.create(false, null);
         }
 
     }

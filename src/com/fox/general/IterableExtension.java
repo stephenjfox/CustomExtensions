@@ -1,6 +1,7 @@
 package com.fox.general;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -18,4 +19,16 @@ public class IterableExtension {
         return collected;
     }
 
+    public static <T> Iterable<T> concat( Iterable<? extends T>... iterables ) {
+
+        LinkedList<T> list = new LinkedList<>();
+
+        for ( Iterable<? extends T> iterable : iterables ) {
+            if ( iterable != null ) {
+                iterable.forEach(list::add);
+            }
+        }
+
+        return list;
+    }
 }

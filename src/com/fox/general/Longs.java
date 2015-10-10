@@ -11,10 +11,10 @@ public class Longs {
 
         try {
             Long l = Long.parseLong(str);
-            return Tuple.Create(true, l);
+            return Tuple.create(true, l);
         }
         catch (Exception e) {
-            return Tuple.Create(false, null);
+            return Tuple.create(false, null);
         }
 
     }

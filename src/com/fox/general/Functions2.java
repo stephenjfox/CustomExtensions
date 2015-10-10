@@ -3,9 +3,9 @@ package com.fox.general;
 /**
  * Created by stephen on 10/8/15.
  */
-public class Functional {
+public class Functions2 {
 
-    public static interface Getter<T> {
+    public interface Getter<T> {
         T apply();
     }
 
