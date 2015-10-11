@@ -25,7 +25,7 @@ public class Arrays2Test {
     }
 
     /**
-     * Method: MyToString(Iterable<T> objArray)
+     * Method: myToString(Iterable<T> objArray)
      */
     @Test
     public void testMyToString() throws Exception {

@@ -4,6 +4,7 @@ import com.fox.general.IterableExtension;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Created by stephen on 4/15/15.
@@ -37,26 +38,38 @@ public class MapExtension
         return hashMap;
     }
 
-    /**
-     *
-     * @param tuples
-     * @param <K>
-     * @param <V>
-     * @return
-     */
-    public static <K, V extends Iterable> Map<K, Iterable> fromConcatableList( Iterable<Tuple<K, V>> tuples ) {
+    public static <K, V, E extends Iterable<V>> Map<K, Iterable<V>> fromConcatableList( Iterable<Tuple<K, E>> tuples ) {
 
-        HashMap<K, Iterable> hashMap = new HashMap<>();
+        HashMap<K, Iterable<V>> hashMap = new HashMap<>();
 
         tuples.forEach(kvPair -> {
             K key = kvPair.item1;
-            V iterValue = kvPair.item2;
+            E iterValue = kvPair.item2;
 
-            Iterable concat = IterableExtension.concat(hashMap.get(key), iterValue);
+            Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterValue);
             hashMap.put(key, concat);
         });
 
         return hashMap;
+    }
+
+    public static <K, V, E extends Iterable<V>, R>
+    Map<K, R> fromConcatableList( Iterable<Tuple<K, E>> tuples, Function<E, R> transform ) {
+        HashMap<K, Iterable<V>> hashMap = new HashMap<>();
+
+        tuples.forEach(kvPair -> {
+            K key = kvPair.item1;
+            E iterValue = kvPair.item2;
+
+            Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterValue);
+            hashMap.put(key, concat);
+        });
+
+        HashMap<K, R> trueRet = new HashMap<>();
+
+        hashMap.entrySet().forEach(entry -> trueRet.put(entry.getKey(), transform.apply((E)entry.getValue())));
+
+        return trueRet;
     }
 
 }

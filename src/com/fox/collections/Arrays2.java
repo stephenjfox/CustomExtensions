@@ -1,19 +1,15 @@
 package com.fox.collections;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Array;
 
 /**
  * Created by stephen on 4/15/15.
  */
 public class Arrays2 {
-    public static <T> String MyToString( Iterable<T> objArray )
+    public static <T> String myToString( Iterable<T> objArray )
     {
         StringBuilder concat = new StringBuilder("[ ");
-        objArray.forEach(o -> {
-            concat.append(o).append(" ");
-        });
+        objArray.forEach(o -> concat.append(o).append(" "));
 
         return concat.toString();
     }
@@ -39,10 +35,25 @@ public class Arrays2 {
 
     public static <T> T[] concat( T[] left, T[] right ) {
 
+        /*
+        // This logic works, but it's heavy and slower at larger N values
         List<T> list = new ArrayList<>();
         Arrays.stream(left).forEach(list::add);
         Arrays.stream(right).forEach(list::add);
+        */
 
-        return list.toArray(left.clone());
+        int totalLength = left.length + right.length;
+        T[] retArr = (T[]) Array.newInstance(left.getClass().getComponentType(), totalLength);
+
+        System.arraycopy(left, 0, retArr, 0, left.length);
+        System.arraycopy(right, 0, retArr, left.length, right.length);
+        /*
+        // The above should duplicate the below
+        for ( int i = 0, j = right.length; i < j; i++ ) {
+            int offset = i + left.length;
+            retArr[(offset)] = right[i];
+        }*/
+
+        return retArr;
     }
 }

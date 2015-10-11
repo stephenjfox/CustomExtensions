@@ -3,19 +3,20 @@ package com.fox.collections;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkState;
 
 /**
  * Created by stephen on 6/17/15.
  */
-public class Utilities {
+public class CollectionExtension {
 
     public static void classLoader() {
         try {
-            Method[] myMethods = Class.forName("com.fox.collections.Utilities").getDeclaredMethods();
+            Method[] myMethods = Class.forName("com.fox.collections.CollectionExtension").getDeclaredMethods();
 
-            System.out.println("My Utilities' class methods");
+            System.out.println("My CollectionExtension' class methods");
             for ( Method myMethod : myMethods ) {
                 System.out.println(myMethod);
             }
@@ -73,6 +74,10 @@ public class Utilities {
             }
 
         }.go();
+    }
+
+    public <E, T extends E> Collection<T> cast( Collection<E> collection ) throws ClassCastException {
+        return collection.stream().map(e -> (T) e).collect(Collectors.toList());
     }
 
 }
