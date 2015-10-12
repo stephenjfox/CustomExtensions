@@ -14,11 +14,6 @@ public class Strings
         return string.split(",|.|\\?|\\s").length;
     }
 
-    public static boolean isNullOrEmpty( String str )
-    {
-        return str == null || str.isEmpty();
-    }
-
     public static String empty() {
         return "";
     }
@@ -40,6 +35,11 @@ public class Strings
         return clear || clearState;
     }
 
+    public static boolean isNullOrEmpty( String str )
+    {
+        return str == null || str.isEmpty();
+    }
+
     public static Map<String, Integer> listWordCount(String text)
     {
         TreeMap<String, Integer> frequencies = new TreeMap<>();
@@ -57,7 +57,7 @@ public class Strings
         return frequencies;
     }
 
-    public static String Capitalize(String string)
+    public static String capitalize( String string )
     {
         char[] temp1 = string.toCharArray();
         char caps = Character.toUpperCase(temp1[0]);
@@ -71,7 +71,7 @@ public class Strings
         return returner.toString();
     }
 
-    public static String SubstringExcludeIndex(String s, int ... ignoreDexs)
+    public static String substringExcludeIndex( String s, int... ignoreDexs )
     {
         StringBuilder builder = new StringBuilder();
 
@@ -85,7 +85,7 @@ public class Strings
         for ( int i = 0; i < s.length(); i++ )
         {
             if (indices.contains(i))
-                continue;;
+                continue;
             builder.append(s.charAt(i));
         }
 

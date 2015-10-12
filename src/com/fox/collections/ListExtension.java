@@ -1,6 +1,7 @@
 package com.fox.collections;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +29,14 @@ public class ListExtension
 
     public static <T> ArrayList<T> newArrayList() {
         return new ArrayList<>();
+    }
+
+    public static <T> ArrayList<T> newArrayList( T... items ) {
+        ArrayList<T> retList = new ArrayList<>();
+
+        Collections.addAll(retList, items);
+
+        return retList;
     }
 
     public static <T> ArrayList<T> newArrayList( Iterable<T> items ) {
