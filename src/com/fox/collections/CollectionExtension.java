@@ -91,4 +91,12 @@ public class CollectionExtension {
         return collection.stream().map(function).collect(Collectors.toList());
     }
 
+    public static <E> Collection<E> from( Iterable<E> iterable ) {
+
+        if (iterable instanceof Collection) return (Collection<E>) iterable;
+
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
 }
