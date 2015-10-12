@@ -3,7 +3,9 @@ package com.fox.collections;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -41,7 +43,7 @@ public class CollectionExtension {
         }
     }
 
-    private static <T> boolean containsAllSequential( Collection<T> a, Collection<T> b ) {
+    public static <T> boolean containsAllSequential( Collection<T> a, Collection<T> b ) {
 
         return new Object() { // this is how we do inline-methods in Java. I think it's funny
 
@@ -76,8 +78,17 @@ public class CollectionExtension {
         }.go();
     }
 
-    public <E, T extends E> Collection<T> cast( Collection<E> collection ) throws ClassCastException {
+    // TODO: Provide a better implementation than Collectors.toList(), which is "good enough"
+    public static <E, T extends E> Collection<T> cast( Collection<E> collection ) throws ClassCastException {
         return collection.stream().map(e -> (T) e).collect(Collectors.toList());
+    }
+
+    public static <E, T extends E> Collection<T> transform( Iterable<E> iterable, Function<? super E, T> function ) {
+        return StreamSupport.stream(iterable.spliterator(), false).map(function).collect(Collectors.toList());
+    }
+
+        public static <E, T extends E> Collection<T> transform( Collection<E> collection, Function<? super E, T> function ) {
+        return collection.stream().map(function).collect(Collectors.toList());
     }
 
 }
