@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 /**
  * Created by stephen on 4/15/15.
  */
-public class Arrays2 {
+public class ArrayExtensions {
     public static <T> String myToString( Iterable<T> objArray )
     {
         StringBuilder concat = new StringBuilder("[ ");

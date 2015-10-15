@@ -1,6 +1,6 @@
 package test.com.fox.collections;
 
-import com.fox.collections.Arrays2;
+import com.fox.collections.ArrayExtensions;
 import com.fox.io.log.ConsoleLogger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,13 +8,13 @@ import org.junit.Before;
 import org.junit.After;
 
 /**
- * Arrays2 Tester.
+ * ArrayExtensions Tester.
  *
  * @author <Authors name>
  * @version 1.0
  * @since <pre>Jul 30, 2015</pre>
  */
-public class Arrays2Test {
+public class ArrayExtensionsTest {
 
     @Before
     public void before() throws Exception {
@@ -58,7 +58,7 @@ public class Arrays2Test {
         Integer[] ints = new Integer[] { 1, 2, 3, 4},
             integers = new Integer[] { 5, 6, 7, 8};
 
-        Integer[] concat = Arrays2.concat(ints, integers);
+        Integer[] concat = ArrayExtensions.concat(ints, integers);
 
         for ( int i = 0; i < concat.length; i++ ) {
 
