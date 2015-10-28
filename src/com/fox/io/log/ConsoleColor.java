@@ -11,7 +11,7 @@ public enum ConsoleColor {
             return "\u001B[0m";
         }
     },
-    BLACK {
+    WHITE {
         @Override
         public String ansiCode() {
             return "\u001B[30m";
@@ -53,7 +53,7 @@ public enum ConsoleColor {
             return "\u001B[36m";
         }
     },
-    WHITE {
+    BLACK {
         @Override
         public String ansiCode() {
             return "\u001B[37m";

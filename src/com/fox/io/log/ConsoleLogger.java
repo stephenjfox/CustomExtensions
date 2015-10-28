@@ -74,6 +74,10 @@ public class ConsoleLogger {
         log.printDebug(text);
     }
 
+    public static void debug( Object object ) {
+        debug(object.toString());
+    }
+
     public static void warning( String text ) {
         initLogger();
         log.printWarning(text);
