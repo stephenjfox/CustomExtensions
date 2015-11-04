@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
+import java.util.ArrayList;
+
 /**
  * ArrayExtensions Tester.
  *
@@ -25,11 +27,19 @@ public class ArrayExtensionsTest {
     }
 
     /**
-     * Method: myToString(Iterable<T> objArray)
+     * Method: stringify(Iterable<T> objArray)
      */
     @Test
-    public void testMyToString() throws Exception {
-//TODO: Test goes here... 
+    public void testStringify() throws Exception {
+
+        ArrayList<Integer> integers = new ArrayList<>();
+        for ( int i = 0; i < 10; i++ ) {
+            integers.add(i);
+        }
+
+        String stringify = ArrayExtensions.stringify(integers);
+        ConsoleLogger.debug(stringify);
+        Assert.assertTrue(stringify.length() > 20);
     }
 
     /**
@@ -63,12 +73,12 @@ public class ArrayExtensionsTest {
         for ( int i = 0; i < concat.length; i++ ) {
 
             if (i < 4) {
-                ConsoleLogger.debug(String.format("Comparing %d == %d", concat[i], ints[i]));
+                ConsoleLogger.debugFormatted("Comparing %d == %d", concat[i], ints[i]);
                 Assert.assertTrue("All elements should be found",
                         concat[i].intValue() == ints[i].intValue());
             }
             else {
-                ConsoleLogger.debug(String.format("Comparing %d == %d", concat[i], integers[i - 4]));
+                ConsoleLogger.debugFormatted("Comparing %d == %d", concat[i], integers[i - 4]);
                 Assert.assertTrue("All elements should be found",
                         concat[i].intValue() == integers[i - 4].intValue());
             }

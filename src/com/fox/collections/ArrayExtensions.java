@@ -6,10 +6,19 @@ import java.lang.reflect.Array;
  * Created by stephen on 4/15/15.
  */
 public class ArrayExtensions {
-    public static <T> String myToString( Iterable<T> objArray )
+    public static <T> String stringify( Iterable<T> objArray )
     {
         StringBuilder concat = new StringBuilder("[ ");
-        objArray.forEach(o -> concat.append(o).append(" "));
+        boolean first = true;
+        for ( T t : objArray ) {
+            if (!first) concat.append(", ");
+
+            concat.append(String.format("`%s`", t));
+
+            if (first) first = false;
+        }
+
+        concat.append(" ]");
 
         return concat.toString();
     }

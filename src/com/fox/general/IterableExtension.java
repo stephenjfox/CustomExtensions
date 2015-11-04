@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
+ * FIXME: make this more general, such that there user isn't stuck with a "secret" LinkedList
  * Created by stephen on 7/23/15.
  */
 public class IterableExtension {
@@ -18,7 +19,6 @@ public class IterableExtension {
         return collected;
     }
 
-    // FIXME: make this more general, such that there user isn't stuck with a "secret" LinkedList
     public static <T> Iterable<T> concat( Iterable<? extends T>... iterables ) {
 
         LinkedList<T> list = new LinkedList<>();
@@ -35,7 +35,7 @@ public class IterableExtension {
 
     public static <T> Iterable<T> findAll( Iterable<T> collection, Predicate<T> searchFunction )
     {
-        Collection<T> matched = new ArrayList<>();
+        Collection<T> matched = new LinkedList<>();
 
         if ( collection == null ) throw new IllegalArgumentException("collection");
         if ( searchFunction == null ) throw new IllegalArgumentException("searchFunction");
@@ -47,23 +47,16 @@ public class IterableExtension {
         return matched;
     }
 
-    public static <T> Iterable<T> skip( Iterable<T> collection, int skipCount )
+    public static <T> Iterable<T> range( Iterable<T> collection, int startIndex, int count )
     {
-        Collection<T> colMinusSkip = new ArrayList<>();
+        if ( collection == null ) throw new IllegalArgumentException("collection");
 
-        int count = 0;
-
-        for ( T item : collection ) {
-            if ( count == skipCount ) colMinusSkip.add(item);
-            else count++;
-        }
-
-        return colMinusSkip;
+        return take(skip(collection, startIndex), count);
     }
 
     public static <T> Iterable<T> take( Iterable<T> collection, int takeCount )
     {
-        Collection<T> takenValues = new ArrayList<>();
+        Collection<T> takenValues = new LinkedList<>();
 
         Iterator<T> iterator = collection.iterator();
 
@@ -77,11 +70,18 @@ public class IterableExtension {
         return takenValues;
     }
 
-    public static <T> Iterable<T> range( Iterable<T> collection, int startIndex, int count )
+    public static <T> Iterable<T> skip( Iterable<T> collection, int skipCount )
     {
-        if ( collection == null ) throw new IllegalArgumentException("collection");
+        Collection<T> colMinusSkip = new LinkedList<>();
 
-        return take(skip(collection, startIndex), count);
+        int count = 0;
+
+        for ( T item : collection ) {
+            if ( count == skipCount ) colMinusSkip.add(item);
+            else count++;
+        }
+
+        return colMinusSkip;
     }
 
     public static <T> Collection<T> flattenCollections( Collection<T>... collections )

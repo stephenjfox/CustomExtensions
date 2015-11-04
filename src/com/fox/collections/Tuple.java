@@ -18,12 +18,16 @@ public class Tuple<T1, T2>
         this.item2 = item2;
     }
 
-    public static <T1, T2, T3> Triple<T1, T2, T3>  create( T1 i1, T2 i2, T3 i3 ) {
-        return new Triple<>(i1, i2, i3);
+    public static <T1> Unit<T1> create( T1 item ) {
+        return new Unit<>(item);
     }
 
-    public static <T1, T2, T3, T4> Quadruple<T1, T2, T3, T4> create( T1 i1, T2 i2, T3 i3, T4 i4 ) {
-        return new Quadruple<>(i1, i2, i3, i4);
+    public static <T1, T2, T3> Triple<T1, T2, T3>  create( T1 item1, T2 item2, T3 item3 ) {
+        return new Triple<>(item1, item2, item3);
+    }
+
+    public static <T1, T2, T3, T4> Quadruple<T1, T2, T3, T4> create( T1 item1, T2 item2, T3 item3, T4 item4 ) {
+        return new Quadruple<>(item1, item2, item3, item4);
     }
 
     public static <T1, T2, T3, T4, T5> Quintuple<T1, T2, T3, T4, T5> create ( T1 item1, T2 item2, T3 item3, T4 item4, T5 item5 ) {
@@ -54,9 +58,27 @@ public class Tuple<T1, T2>
         return list;
     }
 
-    public static <T1, T2> Tuple<T1, T2> create( T1 i1, T2 i2 )
+    public static <T1, T2> Tuple<T1, T2> create( T1 item1, T2 item2 )
     {
-        return new Tuple<>(i1, i2);
+        return new Tuple<>(item1, item2);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("( %s, %s )", item1, item2);
+    }
+
+    private static class Unit <T1> {
+        public final T1 item;
+
+        private Unit( T1 item ) {
+            this.item = item;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("( %s )", item);
+        }
     }
 
     private static class Triple<T1, T2, T3> extends Tuple<T1, T2> {
@@ -67,11 +89,16 @@ public class Tuple<T1, T2>
             super(item1, item2);
             this.item3 = item3;
         }
+        @Override
+        public String toString() {
+            return String.format("( %s, %s, %s )", item1, item2, item3);
+        }
+
     }
 
     private static class Quadruple<T1, T2, T3, T4> extends Tuple<T1, T2> {
-
         public final T3 item3;
+
         public final T4 item4;
 
         private Quadruple( T1 item1, T2 item2, T3 item3, T4 item4 ) {
@@ -79,12 +106,17 @@ public class Tuple<T1, T2>
             this.item3 = item3;
             this.item4 = item4;
         }
+        @Override
+        public String toString() {
+            return String.format("( %s, %s, %s, %s )", item1, item2, item3, item4);
+        }
+
     }
 
     public static class Quintuple<T1, T2, T3, T4, T5> extends Tuple<T1, T2> {
-
         public final T3 item3;
         public final T4 item4;
+
         public final T5 item5;
 
         private Quintuple( T1 item1, T2 item2, T3 item3, T4 item4, T5 item5 ) {
@@ -93,6 +125,11 @@ public class Tuple<T1, T2>
             this.item4 = item4;
             this.item5 = item5;
         }
+        @Override
+        public String toString() {
+            return String.format("( %s, %s, %s, %s, %s )", item1, item2, item3, item4, item5);
+        }
+
     }
 }
 

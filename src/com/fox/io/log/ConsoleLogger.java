@@ -2,12 +2,15 @@ package com.fox.io.log;
 
 import com.sun.istack.internal.Nullable;
 
+import java.util.Arrays;
+
 /**
  * Static wrapper class for the C_Logger initiative
  */
 public class ConsoleLogger {
 
     private static C_Logger log;
+    private static String RESET_CODE = ConsoleColor.RESET.ansiCode();
 
     public static void writeLine() {
         initLogger();
@@ -22,7 +25,16 @@ public class ConsoleLogger {
 
     public static void writeLine( Object object ) {
         initLogger();
-        log.writeLine(object.toString());
+        log.writeLine(possibleArrayString(object));
+    }
+
+    /* Helpers */
+    private static String possibleArrayString( Object object ) {
+        return object.getClass().isArray() ? Arrays.toString((Object[]) object) : object.toString();
+    }
+
+    public static void writeLine( Object text, ConsoleColor consoleColor, int lineBreaks ) {
+        writeLine(possibleArrayString(text), consoleColor, lineBreaks);
     }
 
     public static void writeLine( String text, ConsoleColor consoleColor, int lineBreaks ) {
@@ -36,7 +48,13 @@ public class ConsoleLogger {
     public static void writeLine( String text, ConsoleColor consoleColor ) {
 
         initLogger();
-        log.writeLine(String.format("%s%s%s", consoleColor.ansiCode(), text, ConsoleColor.RESET.ansiCode()));
+        log.writeLine(String.format("%s%s%s", consoleColor.ansiCode(), text, RESET_CODE));
+    }
+
+    public static void writeLine( Object object, ConsoleColor consoleColor ) {
+
+        writeLine(possibleArrayString(object), consoleColor);
+
     }
 
     public static void writeLineFormatted( String format, ConsoleColor consoleColor, Object... args ) {
@@ -60,8 +78,7 @@ public class ConsoleLogger {
         initLogger();
 
         for ( Object object : objects ) {
-            log.writeLine(String.format("%s%s%s",
-                    consoleColor.ansiCode(), object.toString(), ConsoleColor.RESET.ansiCode()));
+            log.writeLine(String.format("%s%s%s", consoleColor.ansiCode(), object.toString(), RESET_CODE));
         }
     }
 
@@ -75,7 +92,8 @@ public class ConsoleLogger {
     }
 
     public static void debug( Object object ) {
-        debug(object.toString());
+        String text = possibleArrayString(object);
+        debug(text);
     }
 
     public static void warning( String text ) {
