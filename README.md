@@ -41,4 +41,4 @@ public class ConsoleLogger {
   - And then there's the extra plurality (String functions go in "Strings", etc)
 - Expert critique
   - This has been my pet project for ages
-  - Experienced eyes need to chew it to bits and make me betetr
+  - Experienced eyes need to chew it to bits and make me better

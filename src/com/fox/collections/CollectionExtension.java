@@ -1,5 +1,6 @@
 package com.fox.collections;
 
+import com.fox.io.log.ConsoleLogger;
 import com.fox.types.Classes;
 
 import java.lang.reflect.Constructor;
@@ -11,9 +12,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static com.fox.general.PredicateTests.isTrue;
 import static com.fox.io.log.ConsoleLogger.debugFormatted;
 import static com.fox.io.log.ConsoleLogger.exception;
-import static com.google.common.base.Preconditions.checkState;
 
 /**
  * Created by stephen on 6/17/15.
@@ -24,14 +25,13 @@ public class CollectionExtension {
         try {
             Method[] myMethods = Class.forName("com.fox.collections.CollectionExtension").getDeclaredMethods();
 
-            System.out.println("My CollectionExtension' class methods");
             for ( Method myMethod : myMethods ) {
-                System.out.println(myMethod);
+                ConsoleLogger.writeLine(myMethod);
             }
 
         }
         catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            exception(e, "the classLoading is still experimental");
         }
     }
 
@@ -60,7 +60,7 @@ public class CollectionExtension {
             left_Curr = left.next(); // find the first match to check the sequence.
 
         try {
-            checkState(left.hasNext()); // If we've gone the entiritey of our first collection.
+            isTrue(left.hasNext()); // If we've gone the entirety of our first collection.
 
             for (; left.hasNext() && right.hasNext();
                  left_Curr = left.next(), right_Curr = right.next()) {
@@ -71,43 +71,9 @@ public class CollectionExtension {
         }
         catch (Exception e) {
 
-            System.err.println("The first collection never found the start of the second collection");
+            exception(e, "The first collection never found the start of the second collection");
             return false;
         }
-
-        /*
-        // this is cute, but unnecessary
-        return new Object() { // this is how we do inline-methods in Java. I think it's funny
-
-            boolean go() {
-
-                Iterator<T> left  = a.iterator();
-                Iterator<T> right = b.iterator();
-
-                T left_Curr = left.next(), right_Curr = right.next();
-
-                while ( left.hasNext() && left_Curr != right_Curr)
-                    left_Curr = left.next(); // find the first match to check the sequence.
-
-                try {
-                    checkState(left.hasNext()); // If we've gone the entiritey of our first collection.
-
-                    for (; left.hasNext() && right.hasNext();
-                         left_Curr = left.next(), right_Curr = right.next()) {
-                        if (left_Curr != right_Curr) return false;
-                    }
-
-                    return true;
-                }
-                catch (Exception e) {
-
-                    System.err.println("The first collection never found the start of the second collection");
-                    return false;
-                }
-
-            }
-
-        }.go();*/
     }
 
     // TODO: Provide a better implementation than Collectors.toList(), which is "good enough"
@@ -161,7 +127,7 @@ public class CollectionExtension {
      * @param <C> Some collection of that child, where super/interface types perform more reliably
      * @return newInstance of the passed collection through the lens of param {@code <C>}
      */
-    public static <E, T extends E, C extends Collection<T>> C castBetter( Collection<E> collection ) {
+    public static <E, T extends E, C extends Collection<T>> C castBetter( Collection<? extends E> collection ) {
 //        Type preliminarySuperType = Classes.getPreliminarySuperType(collection.getClass());
         try {
             Class<Object> objectClass = Classes.dotClass(collection.getClass());
@@ -186,7 +152,7 @@ public class CollectionExtension {
             exception(e, "Constructor was inaccessible");
         }
         catch (NullPointerException e) {
-            exception(e, "Nullpointer on objectClass (see code for more)\n");
+            exception(e, "Null pointer on objectClass (see code for more)\n");
         }
         catch (ClassNotFoundException e) {
             exception(e, "ClassNotFound from Classes.dotClass(collection.getClass())");

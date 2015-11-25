@@ -1,5 +1,9 @@
 package com.fox.general;
 
+import com.fox.io.log.ConsoleLogger;
+
+import java.lang.reflect.Field;
+
 /**
  * Created by stephen on 4/15/15.
  */
@@ -32,6 +36,11 @@ public class ObjectExtension
                 }
             }
          */
+
+        for ( Field field : o.getClass().getFields() ) {
+
+            ConsoleLogger.writeLineFormatted("Property type at top of for-loop: %s", field.getType());
+        }
 
         return builder.toString();
     }
