@@ -42,7 +42,7 @@ public class Tuple<T1, T2>
         return zip(iterator, iterator1);
     }
 
-    private static <T1, T2> Iterable<Tuple<T1, T2>> zip( Iterator<T1> iterator, Iterator<T2> iterator1 ) {
+    public static <T1, T2> Iterable<Tuple<T1, T2>> zip( Iterator<T1> iterator, Iterator<T2> iterator1 ) {
 
         Objects.requireNonNull(iterator);
         Objects.requireNonNull(iterator1);
@@ -68,7 +68,7 @@ public class Tuple<T1, T2>
         return String.format("( %s, %s )", first, second);
     }
 
-    private static class Unit <T1> {
+    public static class Unit <T1> {
         public final T1 item;
 
         private Unit( T1 item ) {
@@ -81,7 +81,7 @@ public class Tuple<T1, T2>
         }
     }
 
-    private static class Triple<T1, T2, T3> extends Tuple<T1, T2> {
+    public static class Triple<T1, T2, T3> extends Tuple<T1, T2> {
 
         public final T3 third;
 
@@ -96,7 +96,7 @@ public class Tuple<T1, T2>
 
     }
 
-    private static class Quadruple<T1, T2, T3, T4> extends Tuple<T1, T2> {
+    public static class Quadruple<T1, T2, T3, T4> extends Tuple<T1, T2> {
         public final T3 third;
 
         public final T4 fourth;

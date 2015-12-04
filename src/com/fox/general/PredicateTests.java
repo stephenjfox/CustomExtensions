@@ -1,6 +1,7 @@
 package com.fox.general;
 
 /**
+ * Statically import these into your code for more human readability.
  * Created by stephen on 11/17/15.
  */
 public class PredicateTests {

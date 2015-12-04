@@ -1,9 +1,9 @@
 # CustomExtensions
 Making my Java development experience a bit more organized and less painful, one abstraction at a time.
 
-## Useage
-Build the source into a standard (non-executeable .jar)
-- I know there's a main, but this is an idea pad as well
+## Usage
+Build the source into a standard (non-executable .jar)
+- I know there's a ```main()```, but this is an idea testing pad as well
 
 ## Cool features
 - Emulation of a C#-styleInt.TryParse()
@@ -13,24 +13,25 @@ Build the source into a standard (non-executeable .jar)
 - Check out the Collections package. There's a lot in there that I'm proud of.
   - Especially some of the more advanced generics programming you can do.
     - Great example: com.fox.collections.CollectionExtension.castBetter()
+  - SizedLinkedList and the Tuple<T1...T5> are pretty cool
 
 - MathExtension takes the guess work out of using Random.
   - Will do more in the future.	 
 
 ### Where it is
-As of 24/09/2015, it's useable.
+As of 24/09/2015, it's usable and stable.
 - In many projects of mine, these functions have made life easy
 - I find the schemes logical, or at worst the least of evils available
 
-### Where help is neede
-- Naming convension
-  - I am not a rockstar at naming things
+### Where help is needed
+- Naming convention
+  - I am not a rock star at naming things
   - This is actually in the codebase:
 ``` 
 public class ConsoleLogger {
 
     private static C_Logger log;
-...
+// other GOOD code
 }
 ```
 - Code quality improvements
@@ -39,6 +40,10 @@ public class ConsoleLogger {
 
 - Consistent naming. I like the "*Extension" that is seen through a lot of collections package, but using *2 (i.e. "Functions2") isn't bad.
   - And then there's the extra plurality (String functions go in "Strings", etc)
+  - <b>Resolved</b> as of December 3, 2015
+
+- More testing coverage
+
 - Expert critique
   - This has been my pet project for ages
   - Experienced eyes need to chew it to bits and make me better
