@@ -1,7 +1,7 @@
 package com.fox.collections;
 
 import com.fox.io.log.ConsoleLogger;
-import com.fox.types.Classes;
+import com.fox.types.ClassExtension;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -51,20 +51,19 @@ public class CollectionExtension {
 
     public static <T> boolean containsAllSequential( Collection<T> a, Collection<T> b ) {
 
-        Iterator<T> left  = a.iterator();
+        Iterator<T> left = a.iterator();
         Iterator<T> right = b.iterator();
 
         T left_Curr = left.next(), right_Curr = right.next();
 
-        while ( left.hasNext() && left_Curr != right_Curr)
+        while ( left.hasNext() && left_Curr != right_Curr )
             left_Curr = left.next(); // find the first match to check the sequence.
 
         try {
             isTrue(left.hasNext()); // If we've gone the entirety of our first collection.
 
-            for (; left.hasNext() && right.hasNext();
-                 left_Curr = left.next(), right_Curr = right.next()) {
-                if (left_Curr != right_Curr) return false;
+            for (; left.hasNext() && right.hasNext(); left_Curr = left.next(), right_Curr = right.next() ) {
+                if ( left_Curr != right_Curr ) return false;
             }
 
             return true;
@@ -85,16 +84,15 @@ public class CollectionExtension {
         return StreamSupport.stream(iterable.spliterator(), false).map(function).collect(Collectors.toList());
     }
 
-        public static <E, T extends E> Collection<T> transform( Collection<E> collection, Function<? super E, T> function ) {
+    public static <E, T extends E> Collection<T> transform( Collection<E> collection, Function<? super E, T> function ) {
         return collection.stream().map(function).collect(Collectors.toList());
     }
 
     public static <E> Collection<E> from( Iterable<E> iterable ) {
 
-        if (iterable instanceof Collection) return (Collection<E>) iterable;
+        if ( iterable instanceof Collection ) return (Collection<E>) iterable;
 
-        return StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
+        return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
     }
 
     /**
@@ -106,12 +104,12 @@ public class CollectionExtension {
      * ArrayDequeue<Event> events = EventQueueFactory.foo();
      * Queue<HistoricEvent> histories = CollectionExtension.castBetter(events);
      * }
-     *
+     * <p>
      * In the future, I want this to be able to match constructors reflectively and be able to match
      * the type off of param <C> instead.
-     *
+     * <p>
      * Future ex:
-     *
+     * <p>
      * // shout out to Google's Guava library "collections" package
      * {@code
      * ImmutableList<Integer> integers = ImmutableList.of(1,2,3,4);
@@ -122,20 +120,20 @@ public class CollectionExtension {
      * }
      *
      * @param collection Some generic collection
-     * @param <E> type in passed collection
-     * @param <T> some child
-     * @param <C> Some collection of that child, where super/interface types perform more reliably
+     * @param <E>        type in passed collection
+     * @param <T>        some child
+     * @param <C>        Some collection of that child, where super/interface types perform more reliably
      * @return newInstance of the passed collection through the lens of param {@code <C>}
      */
     public static <E, T extends E, C extends Collection<T>> C castBetter( Collection<? extends E> collection ) {
-//        Type preliminarySuperType = Classes.getPreliminarySuperType(collection.getClass());
+//        Type preliminarySuperType = ClassExtension.getPreliminarySuperType(collection.getClass());
         try {
-            Class<Object> objectClass = Classes.dotClass(collection.getClass());
+            Class<Object> objectClass = ClassExtension.dotClass(collection.getClass());
             debugFormatted("collection.class: %s", objectClass);
 
             Constructor<Object> constructor = objectClass.getConstructor(Collection.class);
             debugFormatted("Got ctor: %s", constructor);
-            debugFormatted("Collection<E>.preliminarySuperType()", Classes.getPreliminarySuperType(collection.getClass()));
+            debugFormatted("Collection<E>.preliminarySuperType()", ClassExtension.getPreliminarySuperType(collection.getClass()));
 
             return (C) constructor.newInstance(collection);
         }
@@ -155,7 +153,7 @@ public class CollectionExtension {
             exception(e, "Null pointer on objectClass (see code for more)\n");
         }
         catch (ClassNotFoundException e) {
-            exception(e, "ClassNotFound from Classes.dotClass(collection.getClass())");
+            exception(e, "ClassNotFound from ClassExtension.dotClass(collection.getClass())");
         }
         return null;
     }

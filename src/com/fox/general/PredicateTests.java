@@ -11,9 +11,21 @@ public class PredicateTests {
         }
     }
 
-    public static void existanceCheck( Object check) {
+    public static void existenceCheck( Object check ) {
         if ( check == null ) {
             throw new IllegalStateException();
+        }
+    }
+
+    public static <R extends RuntimeException>
+    void existenceCheck( Object check, R exceptionToThrow ) {
+        if ( check == null)
+            throw exceptionToThrow;
+    }
+
+    public static void isFalse ( boolean value ) {
+        if ( value ) {
+            throw new IllegalStateException("State shouldn't be true. TRY AGAIN!");
         }
     }
 

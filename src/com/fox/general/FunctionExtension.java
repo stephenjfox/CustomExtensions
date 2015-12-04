@@ -5,7 +5,7 @@ import java.util.function.Function;
 /**
  * Created by stephen on 10/8/15.
  */
-public class Functions2 {
+public class FunctionExtension {
 
     public interface Getter<T> {
         default <B> Function<B, T> asFunction() {

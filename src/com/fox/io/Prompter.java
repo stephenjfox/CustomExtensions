@@ -1,6 +1,6 @@
 package com.fox.io;
 
-import com.fox.general.Strings;
+import com.fox.general.StringExtension;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,6 +37,10 @@ public class Prompter {
         return value;
     }
 
+    private static void initReader () {
+        initReader(System.in);
+    }
+
     public static String safePrompt( String prompt ) {
 
         String input = null;
@@ -47,7 +51,7 @@ public class Prompter {
 
             try {
                 String lineRead = reader.readLine();
-                input = Strings.isNullOrEmpty(lineRead) ? null : lineRead;
+                input = StringExtension.isNullOrEmpty(lineRead) ? null : lineRead;
             }
             catch (IOException e) {
                 exception(e, null);
@@ -56,11 +60,6 @@ public class Prompter {
         }
 
         return input;
-    }
-
-
-    private static void initReader () {
-        initReader(System.in);
     }
 
     private static void initReader( InputStream i_stream ) {

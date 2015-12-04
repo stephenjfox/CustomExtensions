@@ -14,7 +14,7 @@ public class MathExtension {
      * @param angleA
      * @return the angle that would sum the angle
      */
-    public static double compAngle( double angleA ) {
+    public static double complementaryAngle( double angleA ) {
 
         if (angleA > 90) angleA -= 90;
 

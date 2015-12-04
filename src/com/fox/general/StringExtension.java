@@ -7,7 +7,7 @@ import java.util.TreeMap;
 /**
  * Created by stephen on 4/15/15.
  */
-public class Strings
+public class StringExtension
 {
     public static int wordCount( String string )
     {
@@ -53,11 +53,11 @@ public class Strings
         StringBuilder builder = new StringBuilder(wrapping);
         boolean goingToPad = paddingSpaces > 0;
         if ( goingToPad ) {
-            builder.append(repeatedChar(Chars.Constants.SINGLE_SPACE, paddingSpaces));
+            builder.append(repeatedChar(CharExtension.Constants.SINGLE_SPACE, paddingSpaces));
         }
         builder.append(toWrap);
         if ( goingToPad ) {
-            builder.append(repeatedChar(Chars.Constants.SINGLE_SPACE, paddingSpaces));
+            builder.append(repeatedChar(CharExtension.Constants.SINGLE_SPACE, paddingSpaces));
         }
 
         return builder.toString();

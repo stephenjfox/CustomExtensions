@@ -27,13 +27,13 @@ public class MapExtension
      * @param tuples or key-value pairs
      * @param <K> type of the key
      * @param <V> type of the value
-     * @return non-null {@code Map<K, V>}, where K is the type of {@link Tuple#item1}
-     * and V is the type of {@link Tuple#item2}
+     * @return non-null {@code Map<K, V>}, where K is the type of {@link Tuple#first}
+     * and V is the type of {@link Tuple#second}
      */
     public static <K, V> Map<K, V> fromList( Iterable<Tuple<K, V>> tuples ) {
         HashMap<K, V> hashMap = new HashMap<>();
 
-        tuples.forEach(kvTuple -> hashMap.put(kvTuple.item1, kvTuple.item2));
+        tuples.forEach(kvTuple -> hashMap.put(kvTuple.first, kvTuple.second));
 
         return hashMap;
     }
@@ -43,8 +43,8 @@ public class MapExtension
         HashMap<K, Iterable<V>> hashMap = new HashMap<>();
 
         tuples.forEach(kvPair -> {
-            K key = kvPair.item1;
-            E iterValue = kvPair.item2;
+            K key = kvPair.first;
+            E iterValue = kvPair.second;
 
             Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterValue);
             hashMap.put(key, concat);
@@ -58,8 +58,8 @@ public class MapExtension
         HashMap<K, Iterable<V>> hashMap = new HashMap<>();
 
         tuples.forEach(kvPair -> {
-            K key = kvPair.item1;
-            E iterValue = kvPair.item2;
+            K key = kvPair.first;
+            E iterValue = kvPair.second;
 
             Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterValue);
             hashMap.put(key, concat);

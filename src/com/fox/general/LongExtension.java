@@ -5,7 +5,7 @@ import com.fox.collections.Tuple;
 /**
  * Created by stephen on 7/29/15.
  */
-public class Longs {
+public class LongExtension {
 
     public static Tuple<Boolean, Long> tryParse(String str) {
 

@@ -1,6 +1,6 @@
 package test.com.fox.collections;
 
-import com.fox.collections.ArrayExtensions;
+import com.fox.collections.ArrayExtension;
 import com.fox.io.log.ConsoleLogger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,13 +10,13 @@ import org.junit.After;
 import java.util.ArrayList;
 
 /**
- * ArrayExtensions Tester.
+ * ArrayExtension Tester.
  *
  * @author <Authors name>
  * @version 1.0
  * @since <pre>Jul 30, 2015</pre>
  */
-public class ArrayExtensionsTest {
+public class ArrayExtensionTest {
 
     @Before
     public void before() throws Exception {
@@ -37,7 +37,7 @@ public class ArrayExtensionsTest {
             integers.add(i);
         }
 
-        String stringify = ArrayExtensions.stringify(integers);
+        String stringify = ArrayExtension.stringify(integers);
         ConsoleLogger.debug(stringify);
         Assert.assertTrue(stringify.length() > 20);
     }
@@ -63,12 +63,11 @@ public class ArrayExtensionsTest {
      */
     @Test
     public void testConcat() throws Exception {
-//TODO: Test goes here...
 
         Integer[] ints = new Integer[] { 1, 2, 3, 4},
             integers = new Integer[] { 5, 6, 7, 8};
 
-        Integer[] concat = ArrayExtensions.concat(ints, integers);
+        Integer[] concat = ArrayExtension.concat(ints, integers);
 
         for ( int i = 0; i < concat.length; i++ ) {
 

@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 /**
  * Created by stephen on 4/15/15.
  */
-public class ArrayExtensions {
+public class ArrayExtension {
     public static <T> String stringify( Iterable<T> objArray )
     {
         StringBuilder concat = new StringBuilder("[ ");
@@ -44,24 +44,11 @@ public class ArrayExtensions {
 
     public static <T> T[] concat( T[] left, T[] right ) {
 
-        /*
-        // This logic works, but it's heavy and slower at larger N values
-        List<T> list = new ArrayList<>();
-        Arrays.stream(left).forEach(list::add);
-        Arrays.stream(right).forEach(list::add);
-        */
-
         int totalLength = left.length + right.length;
         T[] retArr = (T[]) Array.newInstance(left.getClass().getComponentType(), totalLength);
 
         System.arraycopy(left, 0, retArr, 0, left.length);
         System.arraycopy(right, 0, retArr, left.length, right.length);
-        /*
-        // The above should duplicate the below
-        for ( int i = 0, j = right.length; i < j; i++ ) {
-            int offset = i + left.length;
-            retArr[(offset)] = right[i];
-        }*/
 
         return retArr;
     }

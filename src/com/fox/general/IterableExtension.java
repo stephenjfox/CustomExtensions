@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static com.fox.general.PredicateTests.existenceCheck;
+
 /**
  * FIXME: make this more general, such that there user isn't stuck with a "secret" LinkedList
  * Created by stephen on 7/23/15.
@@ -35,10 +37,10 @@ public class IterableExtension {
 
     public static <T> Iterable<T> findAll( Iterable<T> collection, Predicate<T> searchFunction )
     {
-        Collection<T> matched = new LinkedList<>();
+        existenceCheck(collection, new IllegalArgumentException("collection"));
+        existenceCheck(collection, new IllegalArgumentException("searchFunction"));
 
-        if ( collection == null ) throw new IllegalArgumentException("collection");
-        if ( searchFunction == null ) throw new IllegalArgumentException("searchFunction");
+        Collection<T> matched = new LinkedList<>();
 
         for ( T element : collection ) {
             if ( searchFunction.test(element) ) matched.add(element);
@@ -49,7 +51,7 @@ public class IterableExtension {
 
     public static <T> Iterable<T> range( Iterable<T> collection, int startIndex, int count )
     {
-        if ( collection == null ) throw new IllegalArgumentException("collection");
+        existenceCheck(collection, new IllegalArgumentException("collection"));
 
         return take(skip(collection, startIndex), count);
     }
@@ -72,16 +74,16 @@ public class IterableExtension {
 
     public static <T> Iterable<T> skip( Iterable<T> collection, int skipCount )
     {
-        Collection<T> colMinusSkip = new LinkedList<>();
+        Collection<T> collectionMinusSkip = new LinkedList<>();
 
         int count = 0;
 
         for ( T item : collection ) {
-            if ( count == skipCount ) colMinusSkip.add(item);
+            if ( count == skipCount ) collectionMinusSkip.add(item);
             else count++;
         }
 
-        return colMinusSkip;
+        return collectionMinusSkip;
     }
 
     public static <T> Collection<T> flattenCollections( Collection<T>... collections )

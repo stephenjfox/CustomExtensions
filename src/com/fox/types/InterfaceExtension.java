@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 /**
  * Created by stephen on 10/10/15.
  */
-public class Interfaces {
+public class InterfaceExtension {
     public static <E, T extends E> Class<T> dotClass( Object interfacingInstance ) {
 
         Class<?> aClass = interfacingInstance.getClass();

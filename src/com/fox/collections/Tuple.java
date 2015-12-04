@@ -9,13 +9,13 @@ import java.util.Objects;
  */
 public class Tuple<T1, T2>
 {
-    public final T1 item1;
-    public final T2 item2;
+    public final T1 first;
+    public final T2 second;
 
     private Tuple( T1 item1, T2 item2 )
     {
-        this.item1 = item1;
-        this.item2 = item2;
+        this.first = item1;
+        this.second = item2;
     }
 
     public static <T1> Unit<T1> create( T1 item ) {
@@ -65,7 +65,7 @@ public class Tuple<T1, T2>
 
     @Override
     public String toString() {
-        return String.format("( %s, %s )", item1, item2);
+        return String.format("( %s, %s )", first, second);
     }
 
     private static class Unit <T1> {
@@ -83,51 +83,51 @@ public class Tuple<T1, T2>
 
     private static class Triple<T1, T2, T3> extends Tuple<T1, T2> {
 
-        public final T3 item3;
+        public final T3 third;
 
         private Triple( T1 item1, T2 item2, T3 item3 ) {
             super(item1, item2);
-            this.item3 = item3;
+            this.third = item3;
         }
         @Override
         public String toString() {
-            return String.format("( %s, %s, %s )", item1, item2, item3);
+            return String.format("( %s, %s, %s )", first, second, third);
         }
 
     }
 
     private static class Quadruple<T1, T2, T3, T4> extends Tuple<T1, T2> {
-        public final T3 item3;
+        public final T3 third;
 
-        public final T4 item4;
+        public final T4 fourth;
 
         private Quadruple( T1 item1, T2 item2, T3 item3, T4 item4 ) {
             super(item1, item2);
-            this.item3 = item3;
-            this.item4 = item4;
+            this.third = item3;
+            this.fourth = item4;
         }
         @Override
         public String toString() {
-            return String.format("( %s, %s, %s, %s )", item1, item2, item3, item4);
+            return String.format("( %s, %s, %s, %s )", first, second, third, fourth);
         }
 
     }
 
     public static class Quintuple<T1, T2, T3, T4, T5> extends Tuple<T1, T2> {
-        public final T3 item3;
-        public final T4 item4;
+        public final T3 third;
+        public final T4 fourth;
 
-        public final T5 item5;
+        public final T5 fifth;
 
         private Quintuple( T1 item1, T2 item2, T3 item3, T4 item4, T5 item5 ) {
             super(item1, item2);
-            this.item3 = item3;
-            this.item4 = item4;
-            this.item5 = item5;
+            this.third = item3;
+            this.fourth = item4;
+            this.fifth = item5;
         }
         @Override
         public String toString() {
-            return String.format("( %s, %s, %s, %s, %s )", item1, item2, item3, item4, item5);
+            return String.format("( %s, %s, %s, %s, %s )", first, second, third, fourth, fifth);
         }
 
     }

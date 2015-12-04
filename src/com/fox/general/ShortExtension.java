@@ -5,7 +5,7 @@ import com.fox.collections.Tuple;
 /**
  * Created by stephen on 7/29/15.
  */
-public class Shorts {
+public class ShortExtension {
 
     public static Tuple<Boolean, Short> tryParse(String str) {
 

@@ -5,7 +5,7 @@ import com.fox.collections.Tuple;
 /**
  * Created by stephen on 7/29/15.
  */
-public class Integers {
+public class IntegerExtension {
 
     public static Tuple<Boolean, Integer> tryParse(String str) {
 
