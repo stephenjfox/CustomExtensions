@@ -31,4 +31,9 @@ public class LongExtension {
 
     }
 
+    public static class Constants {
+        public final int BYTES = Long.BYTES;
+        public final int SIZE = Long.SIZE;
+    }
+
 }

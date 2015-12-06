@@ -8,12 +8,15 @@ import com.fox.collections.Tuple;
 public class IntegerExtension {
 
     public static Tuple<Boolean, Integer> tryParse(String str) {
+        return tryParse(str, 10);
+    }
+
+    public static Tuple<Boolean, Integer> tryParse( String string, int radix ) {
 
         try {
-            Integer i = Integer.parseInt(str);
-            return Tuple.create(true, i);
-        }
-        catch (Exception e) {
+            Integer anInt = Integer.parseInt(string, radix);
+            return Tuple.create(true, anInt);
+        } catch (Exception e) {
             return Tuple.create(false, null);
         }
 
