@@ -1,6 +1,5 @@
-package test.com.fox.general;
+package com.fox.general;
 
-import com.fox.general.PredicateTests;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

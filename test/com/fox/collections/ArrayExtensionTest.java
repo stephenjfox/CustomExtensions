@@ -1,11 +1,10 @@
-package test.com.fox.collections;
+package com.fox.collections;
 
-import com.fox.collections.ArrayExtension;
 import com.fox.io.log.ConsoleLogger;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
