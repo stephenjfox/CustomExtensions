@@ -11,7 +11,7 @@ Build the source into a standard (non-executable .jar)
   - The implementation is fare from perfect, 
 - Covers some of the bases overlooked but Google's Guava
 - Though the code isn't as impressive, mind you, there are functions I haven't seen elsewhere
-- Check out the [https://github.com/stevemasta34/CustomExtensions/tree/master/src/com/fox/collections](Collections) package. There's a lot in there that I'm proud of.
+- Check out the [Collections](https://github.com/stevemasta34/CustomExtensions/tree/master/src/com/fox/collections) package. There's a lot in there that I'm proud of.
   - Especially some of the more advanced generics programming you can do.
     - Great example: CollectionExtension.castBetter()
   - SizedLinkedList and the Tuple<T1...T5> are pretty cool
