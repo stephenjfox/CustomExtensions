@@ -1,5 +1,8 @@
 package com.fox.io;
 
+import com.fox.io.log.ConsoleColor;
+import com.fox.io.log.ConsoleLogger;
+
 import java.util.Scanner;
 
 /**
@@ -7,14 +10,14 @@ import java.util.Scanner;
  */
 public class IO {
 
-    public static <itemType> int promptMenu( boolean withTerminator, itemType... items ) {
+    public static <ItemType> int promptMenu(boolean withTerminator, ItemType... items) {
 
-        System.out.println("Select an option below: ");
+        ConsoleLogger.writeLine("Select an option below: ", ConsoleColor.YELLOW, 1);
 
         int i = 1;
 
-        for ( itemType item : items ) {
-            System.out.println(String.format("\t%d. %s", i++, item));
+        for (ItemType item : items) {
+            ConsoleLogger.writeLineFormatted("\t%d. %s", i++, item);
         }
 
         return new Scanner(System.in).nextInt();

@@ -1,4 +1,4 @@
-package persistance.collections;
+package com.fox.collections;
 
 import java.util.*;
 
@@ -14,7 +14,6 @@ public class SizedLinkedList <E> implements List<E>, Cloneable {
     private LinkedList<E> wrappedLL;
 
     public SizedLinkedList( int capacity ) {
-        // Code goes here
         this.CAPACITY = capacity;
         this.wrappedLL = new LinkedList<>();
         indexToItem = new HashMap<>();

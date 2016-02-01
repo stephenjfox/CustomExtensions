@@ -1,6 +1,7 @@
 package com.fox.collections;
 
 import com.fox.general.IterableExtension;
+import com.fox.io.log.ConsoleLogger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,7 @@ public class MapExtension
     {
         for ( Map.Entry<T, U> keyValPair : dict.entrySet() )
         {
-            System.out.printf("%s: %s", keyValPair.getKey(), keyValPair.getValue());
+            ConsoleLogger.writeLineFormatted("%s: %s", keyValPair.getKey(), keyValPair.getValue());
         }
     }
 
@@ -38,7 +39,8 @@ public class MapExtension
         return hashMap;
     }
 
-    public static <K, V, E extends Iterable<V>> Map<K, Iterable<V>> fromConcatableList( Iterable<Tuple<K, E>> tuples ) {
+    public static <K, V, E extends Iterable<V>>
+    Map<K, Iterable<V>> concatenateToMap(Iterable<Tuple<K, E>> tuples) {
 
         HashMap<K, Iterable<V>> hashMap = new HashMap<>();
 
@@ -54,14 +56,14 @@ public class MapExtension
     }
 
     public static <K, V, E extends Iterable<V>, R>
-    Map<K, R> fromConcatableList( Iterable<Tuple<K, E>> tuples, Function<E, R> transform ) {
+    Map<K, R> concatenateToMapWith(Iterable<Tuple<K, E>> tuples, Function<E, R> transform) {
         HashMap<K, Iterable<V>> hashMap = new HashMap<>();
 
         tuples.forEach(kvPair -> {
             K key = kvPair.first;
-            E iterValue = kvPair.second;
+            E iterableAsValue = kvPair.second;
 
-            Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterValue);
+            Iterable<V> concat = IterableExtension.concat(hashMap.get(key), iterableAsValue);
             hashMap.put(key, concat);
         });
 

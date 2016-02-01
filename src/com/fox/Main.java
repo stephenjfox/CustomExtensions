@@ -7,8 +7,6 @@ import com.fox.io.log.ConsoleLogger;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-//        CollectionExtension.classLoader();
         String output = Prompter.promptString();
 
         System.out.println("You said: " + output);

@@ -27,14 +27,7 @@ As of 24/09/2015, it's usable and stable.
 ### Where help is needed
 - Naming convention
   - I am not a rock star at naming things
-  - This is actually in the codebase:
-``` 
-public class ConsoleLogger {
 
-    private static C_Logger log;
-// other GOOD code
-}
-```
 - Code quality improvements
   - I wrote lots of this at different stages in my development career
   - Some of the code is fairly amatuer, but I'm looking for someone to help me this endeavor

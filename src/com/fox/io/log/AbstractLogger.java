@@ -9,7 +9,6 @@ public abstract class AbstractLogger implements Logger {
     protected PrintStream outStream, errStream;
 
     public AbstractLogger(PrintStream outputStream, PrintStream errorStream) {
-        // Code goes here
         this.outStream = outputStream;
         this.errStream = errorStream;
     }
