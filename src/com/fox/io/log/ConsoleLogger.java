@@ -152,7 +152,10 @@ public class ConsoleLogger {
         public void printException(Exception ex, @Nullable String text) {
             String userMsg = (text != null ? text : "");
             errStream.println("EXCEPTION: " +
-                    Arrays.asList(ex.getStackTrace()).stream().map(StackTraceElement::toString).reduce((s, s2) -> s.concat("\n" + s2)) + userMsg);
+                    Arrays.asList(ex.getStackTrace())
+                        .stream()
+                        .map(StackTraceElement::toString)
+                        .reduce((s, s2) -> s.concat("\n" + s2)) + userMsg);
         }
     }
 
