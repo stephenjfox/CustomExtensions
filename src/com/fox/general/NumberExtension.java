@@ -7,23 +7,21 @@ import com.fox.collections.Tuple;
  */
 public class NumberExtension {
 
-    public static boolean isNumber( String string ) {
-        return isNumber(string, 10);
-    }
+  public static boolean isNumber(String string) {
+    return isNumber(string, 10);
+  }
 
-    public static boolean isNumber( String potential, int radix ) {
-        Tuple<Boolean, Short> booleanShortTuple = ShortExtension.tryParse(potential, radix);
-        if ( booleanShortTuple.first ) {
-            return true;
-        }
-        else {
-            Tuple<Boolean, Integer> booleanIntegerTuple = IntegerExtension.tryParse(potential, radix);
-            if ( booleanIntegerTuple.first ) {
-                return true;
-            }
-            else {
-                return LongExtension.tryParse(potential, radix).first;
-            }
-        }
+  public static boolean isNumber(String potential, int radix) {
+    Tuple<Boolean, Short> booleanShortTuple = ShortExtension.tryParse(potential, radix);
+    if (booleanShortTuple.first) {
+      return true;
+    } else {
+      Tuple<Boolean, Integer> booleanIntegerTuple = IntegerExtension.tryParse(potential, radix);
+      if (booleanIntegerTuple.first) {
+        return true;
+      } else {
+        return LongExtension.tryParse(potential, radix).first;
+      }
     }
+  }
 }

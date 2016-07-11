@@ -7,12 +7,12 @@ import java.util.function.Function;
  */
 public class FunctionExtension {
 
-    public interface Getter<T> {
-        default <B> Function<B, T> asFunction() {
-            return b -> this.apply();
-        }
-
-        T apply();
+  public interface Getter<T> {
+    default <B> Function<B, T> asFunction() {
+      return b -> this.apply();
     }
+
+    T apply();
+  }
 
 }

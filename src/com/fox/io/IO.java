@@ -10,17 +10,17 @@ import java.util.Scanner;
  */
 public class IO {
 
-    public static <ItemType> int promptMenu(boolean withTerminator, ItemType... items) {
+  public static <ItemType> int promptMenu(boolean withTerminator, ItemType... items) {
 
-        ConsoleLogger.writeLine("Select an option below: ", ConsoleColor.YELLOW, 1);
+    ConsoleLogger.writeLine("Select an option below: ", ConsoleColor.YELLOW, 1);
 
-        int i = 1;
+    int i = 1;
 
-        for (ItemType item : items) {
-            ConsoleLogger.writeLineFormatted("\t%d. %s", i++, item);
-        }
-
-        return new Scanner(System.in).nextInt();
+    for (ItemType item : items) {
+      ConsoleLogger.writeLineFormatted("\t%d. %s", i++, item);
     }
+
+    return new Scanner(System.in).nextInt();
+  }
 
 }

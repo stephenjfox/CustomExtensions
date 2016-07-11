@@ -5,8 +5,8 @@ package com.fox.general;
  */
 public class CharExtension {
 
-    public static final class Constants {
-        public static final char SINGLE_SPACE = ' ';
-    }
+  public static final class Constants {
+    public static final char SINGLE_SPACE = ' ';
+  }
 
 }

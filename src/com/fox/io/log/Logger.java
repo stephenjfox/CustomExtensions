@@ -7,14 +7,14 @@ import com.sun.istack.internal.Nullable;
  */
 public interface Logger {
 
-    void writeLine( String text );
+  void writeLine(String text);
 
-    void printDebug( String text );
+  void printDebug(String text);
 
-    void printWarning( String text );
+  void printWarning(String text);
 
-    void printError( String text );
+  void printError(String text);
 
-    void printException( Exception ex, @Nullable String text );
+  void printException(Exception ex, @Nullable String text);
 }
 

@@ -15,58 +15,57 @@ import static com.fox.io.log.ConsoleLogger.writeLine;
  */
 public class Prompter {
 
-    private static BufferedReader reader;
-    // TODO: Do I actually need the C_Logger?
+  private static BufferedReader reader;
+  // TODO: Do I actually need the C_Logger?
 //    private static Logger Log = new C_Logger();
-    
-    public static String promptString () {
-        return promptString ("Please input a valid string");
-    }
 
-    public static String promptString( String prompt ) {
+  public static String promptString() {
+    return promptString("Please input a valid string");
+  }
+
+  public static String promptString(String prompt) {
 
 //        System.out.println(prompt);
-        if ( reader == null ) {
-            initReader();
-        }
-
-        String value = safePrompt(prompt);
-
-        // TODO: there should be more here, to warrant the seperate method
-
-        return value;
+    if (reader == null) {
+      initReader();
     }
 
-    private static void initReader () {
-        initReader(System.in);
+    String value = safePrompt(prompt);
+
+    // TODO: there should be more here, to warrant the seperate method
+
+    return value;
+  }
+
+  private static void initReader() {
+    initReader(System.in);
+  }
+
+  public static String safePrompt(String prompt) {
+
+    String input = null;
+
+    while (input == null) {
+
+      writeLine(prompt);
+
+      try {
+        String lineRead = reader.readLine();
+        input = StringExtension.isNullOrEmpty(lineRead) ? null : lineRead;
+      } catch (IOException e) {
+        exception(e, null);
+      }
+
     }
 
-    public static String safePrompt( String prompt ) {
+    return input;
+  }
 
-        String input = null;
+  private static void initReader(InputStream i_stream) {
+    initReader(new InputStreamReader(i_stream));
+  }
 
-        while ( input == null ) {
-
-            writeLine(prompt);
-
-            try {
-                String lineRead = reader.readLine();
-                input = StringExtension.isNullOrEmpty(lineRead) ? null : lineRead;
-            }
-            catch (IOException e) {
-                exception(e, null);
-            }
-
-        }
-
-        return input;
-    }
-
-    private static void initReader( InputStream i_stream ) {
-        initReader(new InputStreamReader(i_stream));
-    }
-
-    private static void initReader( InputStreamReader is_Reader ) {
-        reader = new BufferedReader(is_Reader);
-    }
+  private static void initReader(InputStreamReader is_Reader) {
+    reader = new BufferedReader(is_Reader);
+  }
 }
