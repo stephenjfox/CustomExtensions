@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class ProcessHelper {
+public class ProcessExtension {
   /**
    * Analyzes the {@link InputStream} instances for the passed {@link Process},
    * first checking for failures, then proceeding to standard input for that instance.
@@ -21,7 +21,7 @@ public class ProcessHelper {
    * in a (user) shell upon completion of the process executing
    * @throws IOException
    */
-  static String reviewInputStreamsOn(Process process) throws IOException {
+  public static String readInputStreamOf(Process process) throws IOException {
 
     InputStreamReader inputStreamReader = new InputStreamReader(process.getErrorStream());
     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -49,7 +49,7 @@ public class ProcessHelper {
 
   /**
    * Full execution time is around 300ms (200 of which is thanks to the work done by
-   * {@link ProcessHelper#reviewInputStreamsOn(Process)}).
+   * {@link ProcessExtension#readInputStreamOf(Process)}).
    *
    * NOTE: Because this computation is so heavy, perhaps we should cache it?
    *
@@ -62,7 +62,7 @@ public class ProcessHelper {
       Process jps = Runtime.getRuntime().exec("jps -l"); // produces the fully qualified names
 
       // jps prints each on its own line
-      String[] pidWithNames = reviewInputStreamsOn(jps).split("\n");
+      String[] pidWithNames = readInputStreamOf(jps).split("\n");
 
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 
