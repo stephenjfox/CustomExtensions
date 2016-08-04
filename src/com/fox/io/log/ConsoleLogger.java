@@ -7,6 +7,7 @@ import java.util.Arrays;
 import static com.fox.general.PredicateTests.existenceCheck;
 
 /**
+ * FIXME (7/10/16): This class is powerful, but could probably be a singleton
  * Static wrapper class for the C_Logger initiative
  */
 public class ConsoleLogger {

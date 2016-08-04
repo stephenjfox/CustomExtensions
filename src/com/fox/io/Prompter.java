@@ -16,8 +16,6 @@ import static com.fox.io.log.ConsoleLogger.writeLine;
 public class Prompter {
 
   private static BufferedReader reader;
-  // TODO: Do I actually need the C_Logger?
-//    private static Logger Log = new C_Logger();
 
   public static String promptString() {
     return promptString("Please input a valid string");
@@ -25,16 +23,12 @@ public class Prompter {
 
   public static String promptString(String prompt) {
 
-//        System.out.println(prompt);
     if (reader == null) {
       initReader();
     }
 
-    String value = safePrompt(prompt);
-
-    // TODO: there should be more here, to warrant the seperate method
-
-    return value;
+    // TODO: there should be more here, to warrant the separate method
+    return safePrompt(prompt);
   }
 
   private static void initReader() {
