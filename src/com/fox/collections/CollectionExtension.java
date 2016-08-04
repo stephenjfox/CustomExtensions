@@ -47,18 +47,18 @@ public class CollectionExtension {
     }
   }
 
-  public static <T> boolean containsAllSequential(Collection<T> a, Collection<T> b) {
+  public static <T> boolean containsAllSequential(Collection<T> larger, Collection<T> smaller) {
 
-    Iterator<T> left = a.iterator();
-    Iterator<T> right = b.iterator();
+    Iterator<T> left = larger.iterator();
+    Iterator<T> right = smaller.iterator();
 
     T left_Curr = left.next(), right_Curr = right.next();
 
-    while (left.hasNext() && left_Curr != right_Curr)
-      left_Curr = left.next(); // find the first match to check the sequence.
+    // find the first match to start checking the sequence.
+    while (left.hasNext() && left_Curr != right_Curr) left_Curr = left.next();
 
     try {
-      isTrue(left.hasNext()); // If we've gone the entirety of our first collection.
+      isTrue(left.hasNext()); // Assert we haven't gone the entirety of our first collection.
 
       for (; left.hasNext() && right.hasNext(); left_Curr = left.next(), right_Curr = right.next()) {
         if (left_Curr != right_Curr) return false;
