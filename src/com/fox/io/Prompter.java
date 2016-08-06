@@ -1,6 +1,6 @@
 package com.fox.io;
 
-import com.fox.general.StringExtension;
+import com.fox.StringExtension;
 
 import java.io.BufferedReader;
 import java.io.IOException;
