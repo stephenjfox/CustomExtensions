@@ -14,7 +14,7 @@ public class PredicateTests {
 
   public static void existenceCheck(Object check) {
     if (check == null) {
-      throw new IllegalStateException();
+      throw new NullPointerException();
     }
   }
 

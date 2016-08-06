@@ -65,6 +65,10 @@ public class Tuple<T1, T2> {
     return String.format("( %s, %s )", first, second);
   }
 
+  //////////////////////////////////////////////////
+  /// Inner Tuple children types
+  //////////////////////////////////////////////////
+
   public static class Unit<T1> {
     public final T1 item;
 

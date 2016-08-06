@@ -3,10 +3,13 @@ package com.fox.collections;
 import com.fox.io.log.ConsoleLogger;
 import com.fox.types.ClassExtension;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -34,14 +37,15 @@ public class CollectionExtension {
     }
   }
 
-  public static <T> boolean containsAll(Collection<T> a, Collection<T> b, boolean sequential) {
+  public static <T> boolean containsAll(Collection<T> larger, Collection<T> smaller,
+                                        boolean sequential) {
     if (sequential) {
-      return containsAllSequential(a, b);
+      return containsAllSequential(larger, smaller);
     } else {
       boolean contains = false;
 
-      for (T t : b) {
-        contains = a.contains(t);
+      for (T t : smaller) {
+        contains = larger.contains(t);
       }
       return contains;
     }
@@ -60,11 +64,13 @@ public class CollectionExtension {
     try {
       isTrue(left.hasNext()); // Assert we haven't gone the entirety of our first collection.
 
-      for (; left.hasNext() && right.hasNext(); left_Curr = left.next(), right_Curr = right.next()) {
+      for (; left.hasNext() && right.hasNext();
+           left_Curr = left.next(), right_Curr = right.next()) {
         if (left_Curr != right_Curr) return false;
       }
 
-      return true;
+      return !right.hasNext();
+
     } catch (Exception e) {
 
       exception(e, "The first collection never found the start of the second collection");
@@ -85,6 +91,31 @@ public class CollectionExtension {
     return collection.stream().map(function).collect(Collectors.toList());
   }
 
+  @SuppressWarnings("varargs")
+  /**
+   * Currently, returns an {@link java.util.ArrayList} that is supplied lazily (that's
+   * to the wonderful Streams API).
+   *
+   *
+   * @param elements
+   * @param <E>
+   * @return
+   *
+   * TODO: In the near future, return a custom Collection type of {@link LazyUnmodifiableCollection}.
+   */
+  public static <E> Collection<E> from(E... elements) {
+    return Arrays.stream(elements).collect(Collectors.toList());
+  }
+
+  /**
+   * Produces a modifiable Collection from the Iterable argument.
+   *
+   * @param iterable of elements to form the collection
+   * @param <E> type binding for the new collection
+   * @return {@link java.util.ArrayList} currently, but we'll move away from this.
+   *
+   * @see Collectors#toList() for reasons why
+   */
   public static <E> Collection<E> from(Iterable<E> iterable) {
 
     if (iterable instanceof Collection) return (Collection<E>) iterable;
@@ -96,7 +127,7 @@ public class CollectionExtension {
    * Performs an O(n) - where 'n' is the element count of the passed collection - casting of the
    * elements into another type lens
    * Ex:
-   * // This runs, given HistoricEvent matches the Event constructor
+   * // This runs, given HistoricEvent matches the Event constructor OR is a proper child of Event
    * {@code
    * ArrayDequeue<Event> events = EventQueueFactory.foo();
    * Queue<HistoricEvent> histories = CollectionExtension.castBetter(events);
@@ -111,26 +142,29 @@ public class CollectionExtension {
    * {@code
    * ImmutableList<Integer> integers = ImmutableList.of(1,2,3,4);
    * RegularImmutableList<Integer> regularInts = CollectionExtension.castBetter(integers);
-   * // of better yet...
+   * // or better yet...
    * RegularImmutableList<Long> regularInts = CollectionExtension.castBetter(integers);
    * // because, if we can, we SHOULD
    * }
    *
    * @param collection Some generic collection
-   * @param <E>        type in passed collection
-   * @param <T>        some child
-   * @param <C>        Some collection of that child, where super/interface types perform more reliably
-   * @return newInstance of the passed collection through the lens of param {@code <C>}
+   * @param <E>        The top of an inheritance hierarchy
+   * @param <T>        The type beneath that type, {@code <E>}
+   * @param <C>        A child of the {@code Collection} (i.e. {@link java.util.LinkedList}) to
+   *                   be instantiated and bound outwards.
+   *                   Note that super/interface types perform more reliably
+   * @return newInstance of the passed collection through the lens of the derived type {@code <C>}
    */
   public static <E, T extends E, C extends Collection<T>> C castBetter(Collection<? extends E> collection) {
-//        Type preliminarySuperType = ClassExtension.getPreliminarySuperType(collection.getClass());
+
     try {
       Class<Object> objectClass = ClassExtension.dotClass(collection.getClass());
       debugFormatted("collection.class: %s", objectClass);
 
       Constructor<Object> constructor = objectClass.getConstructor(Collection.class);
       debugFormatted("Got ctor: %s", constructor);
-      debugFormatted("Collection<E>.preliminarySuperType()", ClassExtension.getPreliminarySuperType(collection.getClass()));
+      debugFormatted("Collection<E>.preliminarySuperType()",
+          ClassExtension.getPreliminarySuperType(collection.getClass()));
 
       return (C) constructor.newInstance(collection);
     } catch (NoSuchMethodException e) {

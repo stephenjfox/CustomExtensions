@@ -2,6 +2,8 @@ package com.fox.collections;
 
 import java.lang.reflect.Array;
 
+import static com.fox.general.PredicateTests.existenceCheck;
+
 /**
  * Created by stephen on 4/15/15.
  */
@@ -33,13 +35,16 @@ public class ArrayExtension {
   }
 
   public static <T> int linearSearch(T[] arr, T seek) {
-    for (int i = 0; i < arr.length; i++)
+    for (int i = 0, j = arr.length; i < j; i++)
       if (arr[i].equals(seek)) return i;
 
     return -1;
   }
 
   public static <T> T[] concat(T[] left, T[] right) {
+
+    existenceCheck(left);
+    existenceCheck(right);
 
     int totalLength = left.length + right.length;
     T[] retArr = (T[]) Array.newInstance(left.getClass().getComponentType(), totalLength);
