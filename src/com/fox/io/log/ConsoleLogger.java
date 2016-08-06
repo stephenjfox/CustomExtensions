@@ -4,7 +4,7 @@ import com.sun.istack.internal.Nullable;
 
 import java.util.Arrays;
 
-import static com.fox.general.PredicateTests.existenceCheck;
+import static com.fox.general.Predication.existenceCheck;
 
 /**
  * FIXME (7/10/16): This class is powerful, but could probably be a singleton
@@ -119,7 +119,7 @@ public class ConsoleLogger {
     log = loggerReplacement;
   }
 
-  // TODO: build a configuration object and set options based on functions in the config
+  // TODO: build a configuration object and set options based on function in the config
   // TODO: write several methods that match those in the Configuration object
 
   /**
