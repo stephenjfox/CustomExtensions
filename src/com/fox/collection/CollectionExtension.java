@@ -22,7 +22,10 @@ import static com.fox.io.log.ConsoleLogger.exception;
  */
 public class CollectionExtension {
 
-  public static void classLoader() {
+  /**
+   * Reflectively print the {@link Method#toString()} for every method in this type
+   */
+  public static void presentFunctionList() {
     try {
       Method[] myMethods = Class.forName("com.fox.collection.CollectionExtension").getDeclaredMethods();
 
@@ -35,6 +38,15 @@ public class CollectionExtension {
     }
   }
 
+  /**
+   * Search for every element of the latter collection in the larger: potential n^m computation.
+   *
+   * @param larger
+   * @param smaller
+   * @param sequential are we looking for the smaller collection sequentially?
+   * @param <T>
+   * @return
+   */
   public static <T> boolean containsAll(Collection<T> larger, Collection<T> smaller,
                                         boolean sequential) {
     if (sequential) {
@@ -49,25 +61,33 @@ public class CollectionExtension {
     }
   }
 
+  /**
+   * @param larger  of the collections
+   * @param smaller a potential sub-sequence
+   * @param <T>
+   * @return if the entirety of {@code smaller} was found:
+   * Therefore, List<Integer> larger = [1, 2, 3, 4, 5], smaller = [2, 3, 4];
+   * assert containsAllSequential(larger, smaller); // true, so no crash ;)
+   */
   public static <T> boolean containsAllSequential(Collection<T> larger, Collection<T> smaller) {
 
     Iterator<T> left = larger.iterator();
     Iterator<T> right = smaller.iterator();
 
-    T left_Curr = left.next(), right_Curr = right.next();
+    T leftCurr = left.next(), rightCurr = right.next();
 
     // find the first match to start checking the sequence.
-    while (left.hasNext() && left_Curr != right_Curr) left_Curr = left.next();
+    while (left.hasNext() && leftCurr != rightCurr) leftCurr = left.next();
 
     try {
       isTrue(left.hasNext()); // Assert we haven't gone the entirety of our first collection.
 
-      for (; left.hasNext() && right.hasNext();
-           left_Curr = left.next(), right_Curr = right.next()) {
-        if (left_Curr != right_Curr) return false;
+      for (; left.hasNext() && right.hasNext(); leftCurr = left.next(), rightCurr = right.next()) {
+        if (leftCurr != rightCurr) return false;
       }
 
-      return !right.hasNext();
+      // if we've finished the iterator and matched all the way,
+      return !right.hasNext(); // return 'true'; otherwise false
 
     } catch (Exception e) {
 
@@ -76,20 +96,41 @@ public class CollectionExtension {
     }
   }
 
-  // TODO: Provide a better implementation than Collectors.toList(), which is "good enough"
+  /**
+   * Attempt to force some type cast on the internals of the passed collection.
+   *
+   * @param collection of elements you would like to cast
+   * @param <E> super type
+   * @param <T> child type of some parent (that could be a child of) E
+   * @return
+   * @throws ClassCastException is an element cannot be viewed as a {@code <T>}
+   */
   public static <E, T extends E> Collection<T> cast(Collection<E> collection) throws ClassCastException {
     return collection.stream().map(e -> (T) e).collect(Collectors.toList());
   }
 
+  /**
+   * An obtuse implementation of {@link java.util.stream.Stream#map(Function)}
+   *
+   * @param iterable
+   * @param function
+   * @param <E>
+   * @param <T>
+   * @return deep-created {@link java.util.ArrayList} of the mapped element type {@code <T>}.
+   * Future implementations will use a custom shallow collection, that will transform elements on
+   * retrieval
+   */
   public static <E, T extends E> Collection<T> transform(Iterable<E> iterable, Function<? super E, T> function) {
     return StreamSupport.stream(iterable.spliterator(), false).map(function).collect(Collectors.toList());
   }
 
+  /**
+   * See {@link CollectionExtension#transform(Iterable, Function)}
+   */
   public static <E, T extends E> Collection<T> transform(Collection<E> collection, Function<? super E, T> function) {
     return collection.stream().map(function).collect(Collectors.toList());
   }
 
-  @SuppressWarnings("varargs")
   /**
    * Currently, returns an {@link java.util.ArrayList} that is supplied lazily (that's
    * to the wonderful Streams API).
@@ -101,6 +142,7 @@ public class CollectionExtension {
    *
    * TODO: In the near future, return a custom Collection type of {@link LazyUnmodifiableCollection}.
    */
+  @SafeVarargs
   public static <E> Collection<E> from(E... elements) {
     return Arrays.stream(elements).collect(Collectors.toList());
   }
@@ -109,9 +151,8 @@ public class CollectionExtension {
    * Produces a modifiable Collection from the Iterable argument.
    *
    * @param iterable of elements to form the collection
-   * @param <E> type binding for the new collection
+   * @param <E>      type binding for the new collection
    * @return {@link java.util.ArrayList} currently, but we'll move away from this.
-   *
    * @see Collectors#toList() for reasons why
    */
   public static <E> Collection<E> from(Iterable<E> iterable) {
