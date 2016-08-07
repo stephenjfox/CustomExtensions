@@ -137,13 +137,17 @@ public class StringExtension {
    *
    * @param sentence Some string sentence that is potentially space-delimited
    * @return effectively "Pascal-case" string (ignoring spaces, of course)
+   *
+   * See parallel tests' package for more
    */
-  public static String captalizeSentence(String sentence) {
+  public static String capitalizeSentence(String sentence) {
+    if (isNullOrEmpty(sentence)) return sentence;
 
     final String space = " ";
     return Arrays.stream(sentence.split("\\s"))
         .map(StringExtension::capitalize)
-        .reduce(empty(), (s, s2) -> s.concat(space).concat(s2));
+        .reduce((s, s2) -> s.concat(space).concat(s2))
+        .get(); // ignored "unsafe" call, because it is guaranteed to hold SOMETHING
   }
 
   /**

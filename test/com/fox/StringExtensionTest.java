@@ -39,7 +39,6 @@ public class StringExtensionTest {
     Assert.assertTrue("The string IS empty", StringExtension.isNullOrEmpty(testEmpty));
   }
 
-
   @Test
   public void wrappedInDefaultCountAndPadding() throws Exception {
     String expected = "-------------------- Foo --------------------";
@@ -47,6 +46,7 @@ public class StringExtensionTest {
 
     assertEquals("The messages should be equivalent", expected, test);
   }
+
 
   @Test
   public void wrappedInDefaultPadding() throws Exception {
@@ -83,6 +83,36 @@ public class StringExtensionTest {
   @Test
   public void listWordCountMulti() {
     //
+  }
+
+  @Test
+  public void capitalizeSentence() throws Exception {
+    String expected = "Foo Bar";
+    String test = StringExtension.capitalizeSentence("foo bar");
+
+    assertNotNull(test);
+    assertEquals("Strings should be equivalent", expected, test);
+  }
+
+  @Test
+  public void capitalizeSentence_EdgeCases() {
+    // Case #1: strange extra characters
+    String expected = "Foobar. Test";
+    String test = StringExtension.capitalizeSentence("Foobar. test");
+
+    assertNotNull(test);
+    assertEquals("Strings should be equivalent", expected, test);
+
+    // Case #2: empty
+    expected = "";
+    test = StringExtension.capitalizeSentence("");
+
+    assertEquals("Strings should be equivalent", expected, test);
+
+    expected = "A B C D E";
+    test = StringExtension.capitalizeSentence("a b c d e");
+
+    assertEquals("Strings should be equivalent", expected, test);
   }
 
   @Test
