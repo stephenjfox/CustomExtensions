@@ -4,7 +4,7 @@ import com.fox.collection.Tuple;
 
 /**
  * For when you just have to return two things.
- *
+ * <p>
  * Created by Stephen on 8/5/2016.
  */
 public interface Getter2<T1, T2> extends Getter<Tuple<T1, T2>> {

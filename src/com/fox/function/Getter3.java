@@ -7,7 +7,7 @@ import static com.fox.collection.Tuple.create;
 /**
  * The limit of the Getter# series. If you need more returns from a function,
  * we recommend making an encapsulating type.
- *
+ * <p>
  * Created by Stephen on 8/5/2016.
  */
 public interface Getter3<T1, T2, T3> extends Getter<Tuple.Triple<T1, T2, T3>> {
