@@ -195,7 +195,7 @@ public class CollectionExtension {
 
     try {
       Class<Object> objectClass = ClassExtension.dotClass(collection.getClass());
-      debugFormatted("collection.class: %s", objectClass);
+      debugFormatted("(collection).class: %s", objectClass);
 
       Constructor<Object> constructor = objectClass.getConstructor(Collection.class);
       debugFormatted("Got ctor: %s", constructor);

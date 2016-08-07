@@ -1,8 +1,15 @@
 package com.fox;
 
+import com.fox.io.log.ConsoleLogger;
+
+import java.io.Console;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static com.fox.general.Predication.existenceCheck;
 
@@ -70,18 +77,27 @@ public class IterableExtension {
   }
 
   public static <T> Iterable<T> skip(Iterable<T> collection, int skipCount) {
-    Collection<T> collectionMinusSkip = new LinkedList<>();
+    existenceCheck(collection);
+    if (skipCount == 0) return collection;
 
     int count = 0;
+    Iterator<T> iterator = collection.iterator();
 
-    for (T item : collection) {
-      if (count == skipCount) collectionMinusSkip.add(item);
-      else count++;
+    while (iterator.hasNext() && count < skipCount) {
+      iterator.next();
+      count++;
+    }
+
+    Collection<T> collectionMinusSkip = new LinkedList<>();
+
+    while (iterator.hasNext()) {
+      collectionMinusSkip.add(iterator.next());
     }
 
     return collectionMinusSkip;
   }
 
+  @SafeVarargs
   public static <T> Collection<T> flattenCollections(Collection<T>... collections) {
     Collection<T> aggregate = new ArrayList<>();
 
