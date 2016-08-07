@@ -50,7 +50,7 @@ public class ProcessExtension {
   /**
    * Full execution time is around 300ms (200 of which is thanks to the work done by
    * {@link ProcessExtension#readInputStreamOf(Process)}).
-   *
+   * <p>
    * NOTE: Because this computation is so heavy, perhaps we should cache it?
    *
    * @return {@link ExecutingProcessInfo} reference that contains all of the system process info

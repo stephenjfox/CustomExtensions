@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 /**
  * Basic function that returns without parameter. Have a likeness to
  * {@link Supplier}
- *
+ * <p>
  * Created by Stephen on 8/5/2016.
  */
 @FunctionalInterface

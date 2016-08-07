@@ -100,8 +100,8 @@ public class CollectionExtension {
    * Attempt to force some type cast on the internals of the passed collection.
    *
    * @param collection of elements you would like to cast
-   * @param <E> super type
-   * @param <T> child type of some parent (that could be a child of) E
+   * @param <E>        super type
+   * @param <T>        child type of some parent (that could be a child of) E
    * @return
    * @throws ClassCastException is an element cannot be viewed as a {@code <T>}
    */
@@ -135,12 +135,9 @@ public class CollectionExtension {
    * Currently, returns an {@link java.util.ArrayList} that is supplied lazily (that's
    * to the wonderful Streams API).
    *
-   *
    * @param elements
    * @param <E>
-   * @return
-   *
-   * TODO: In the near future, return a custom Collection type of {@link LazyUnmodifiableCollection}.
+   * @return TODO: In the near future, return a custom Collection type of {@link LazyUnmodifiableCollection}.
    */
   @SafeVarargs
   public static <E> Collection<E> from(E... elements) {

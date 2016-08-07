@@ -1,7 +1,9 @@
 package com.fox;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.Vector;
 
 import static com.fox.general.Predication.existenceCheck;
 
