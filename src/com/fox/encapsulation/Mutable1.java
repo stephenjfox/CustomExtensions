@@ -9,14 +9,12 @@ package com.fox.encapsulation;
  */
 public class Mutable1<T> extends Mutable<T> {
 
-  private static final int MUTATION_ALLOWANCE = 1;
-
   public Mutable1() {
     this(null);
   }
 
   public Mutable1(T value) {
-    super(value, MUTATION_ALLOWANCE);
+    super(value, 1);
   }
 
 }

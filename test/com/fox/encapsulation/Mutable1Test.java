@@ -3,10 +3,6 @@ package com.fox.encapsulation;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- *
- * Created by Stephen on 10/13/2016.
- */
 public class Mutable1Test {
   @Test
   public void lockTest() {

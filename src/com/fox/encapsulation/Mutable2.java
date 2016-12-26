@@ -6,6 +6,8 @@ package com.fox.encapsulation;
  */
 public class Mutable2<T> extends Mutable<T> {
 
+  public Mutable2() {super(null, 2);}
+
   public Mutable2(final T value) {
     super(value, 2);
   }
