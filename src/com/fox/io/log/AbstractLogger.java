@@ -13,8 +13,6 @@ public abstract class AbstractLogger implements Logger {
     this.errStream = errorStream;
   }
 
-  // TODO: I think there should be more here.
-
   @Override
   public void writeLine(String text) {
     outStream.println(text);
