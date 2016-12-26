@@ -31,10 +31,6 @@ public class Prompter {
     return safePrompt(prompt);
   }
 
-  private static void initReader() {
-    initReader(System.in);
-  }
-
   public static String safePrompt(String prompt) {
 
     String input = null;
@@ -44,7 +40,7 @@ public class Prompter {
       writeLine(prompt);
 
       try {
-        String lineRead = reader.readLine();
+        final String lineRead = reader.readLine();
         input = StringExtension.isNullOrEmpty(lineRead) ? null : lineRead;
       } catch (IOException e) {
         exception(e, null);
@@ -55,11 +51,15 @@ public class Prompter {
     return input;
   }
 
-  private static void initReader(InputStream i_stream) {
-    initReader(new InputStreamReader(i_stream));
+  private static void initReader() {
+    initReader(System.in);
   }
 
-  private static void initReader(InputStreamReader is_Reader) {
-    reader = new BufferedReader(is_Reader);
+  private static void initReader(InputStream inputStream) {
+    initReader(new InputStreamReader(inputStream));
+  }
+
+  private static void initReader(InputStreamReader inputStreamReader) {
+    reader = new BufferedReader(inputStreamReader);
   }
 }

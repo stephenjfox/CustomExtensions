@@ -7,16 +7,19 @@ import java.util.function.Predicate;
 import static com.fox.general.Predication.existenceCheck;
 
 /**
- * FIXME: make this more general, such that there user isn't stuck with a "secret" LinkedList
+ * {@link LinkedList}s are the returned Iterables, because they are structured for head-to-tail
+ * iteration.
  * Created by stephen on 7/23/15.
  */
 public class IterableExtension {
 
   public static <T1, T2> Iterable<T2> map(Iterable<T1> t1s, Function<T1, T2> f) {
 
-    List<T2> collected = new ArrayList<>();
+    List<T2> collected = new LinkedList<>();
 
-    t1s.forEach(x -> collected.add(f.apply(x)));
+    for (T1 t1 : t1s) {
+      collected.add(f.apply(t1));
+    }
 
     return collected;
   }
