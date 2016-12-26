@@ -41,7 +41,16 @@ public abstract class Mutable<T> implements Lockable {
   }
 
   public static <T> Mutable<T> of(final T initial, final int allowedMutations) {
-    return new MutableOfN<T>(initial, allowedMutations);
+    switch (allowedMutations) {
+      case 1:
+        return new Mutable1<>(initial);
+      case 2:
+        return new Mutable2<>(initial);
+      case 3:
+        return new Mutable3<>(initial);
+      default:
+        return new MutableOfN<>(initial, allowedMutations);
+    }
   }
 
   private static class MutableOfN<T> extends Mutable<T> {

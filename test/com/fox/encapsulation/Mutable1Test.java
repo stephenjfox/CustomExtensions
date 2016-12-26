@@ -10,7 +10,7 @@ import org.junit.Test;
 public class Mutable1Test {
   @Test
   public void lockTest() {
-    Mutable1<Integer> mutableInteger = new Mutable1<>(1);
+    Mutable<Integer> mutableInteger = new Mutable1<>(1);
 
     Assert.assertEquals("Should contain a 1", 1, mutableInteger.get().intValue());
 
@@ -31,7 +31,7 @@ public class Mutable1Test {
 
   @Test
   public void setValue() {
-    Mutable1<Integer> mutableInteger = new Mutable1<>(1);
+    Mutable<Integer> mutableInteger = new Mutable1<>(1);
 
     Assert.assertEquals("Should contain a 1", 1, mutableInteger.get().intValue());
 
@@ -42,7 +42,7 @@ public class Mutable1Test {
 
   @Test
   public void setValueMultiple() {
-    Mutable1<Integer> mutableInteger = new Mutable1<>();
+    Mutable<Integer> mutableInteger = new Mutable1<>();
     mutableInteger.set(20);
 
     Assert.assertEquals("Should contain a 20", 20, mutableInteger.get().intValue());
