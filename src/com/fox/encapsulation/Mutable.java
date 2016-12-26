@@ -1,6 +1,8 @@
 package com.fox.encapsulation;
 
 /**
+ * The base of our hierarchy, using the behavioral {@link Lockable} for expediting behavior of
+ * finality.
  * Created by Stephen on 12/26/2016.
  */
 public abstract class Mutable<T> implements Lockable {
@@ -9,7 +11,7 @@ public abstract class Mutable<T> implements Lockable {
   private T value;
   private int mutationCount;
 
-  public Mutable(final T value, final int mutationLimit) {
+  Mutable(final T value, final int mutationLimit) {
     this.value = value;
     this.allowedMutations = mutationLimit;
   }
@@ -36,5 +38,15 @@ public abstract class Mutable<T> implements Lockable {
 
   public int getMutationCount() {
     return mutationCount;
+  }
+
+  public static <T> Mutable<T> of(final T initial, final int allowedMutations) {
+    return new MutableOfN<T>(initial, allowedMutations);
+  }
+
+  private static class MutableOfN<T> extends Mutable<T> {
+    public MutableOfN(final T initial, final int allowedMutations) {
+      super(initial, allowedMutations);
+    }
   }
 }
