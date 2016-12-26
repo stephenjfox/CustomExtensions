@@ -1,33 +1,30 @@
 package com.fox;
 
-import com.fox.io.log.ConsoleLogger;
-
-import java.io.Console;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import static com.fox.general.Predication.existenceCheck;
 
 /**
- * FIXME: make this more general, such that there user isn't stuck with a "secret" LinkedList
+ * {@link LinkedList}s are the returned Iterables, because they are structured for head-to-tail
+ * iteration.
  * Created by stephen on 7/23/15.
  */
 public class IterableExtension {
 
   public static <T1, T2> Iterable<T2> map(Iterable<T1> t1s, Function<T1, T2> f) {
 
-    List<T2> collected = new ArrayList<>();
+    List<T2> collected = new LinkedList<>();
 
-    t1s.forEach(x -> collected.add(f.apply(x)));
+    for (T1 t1 : t1s) {
+      collected.add(f.apply(t1));
+    }
 
     return collected;
   }
 
+  @SafeVarargs
   public static <T> Iterable<T> concat(Iterable<? extends T>... iterables) {
 
     LinkedList<T> list = new LinkedList<>();
@@ -42,13 +39,22 @@ public class IterableExtension {
     return list;
   }
 
-  public static <T> Iterable<T> findAll(Iterable<T> collection, Predicate<T> searchFunction) {
-    existenceCheck(collection, new IllegalArgumentException("collection"));
-    existenceCheck(collection, new IllegalArgumentException("searchFunction"));
+  /**
+   * The effective complement to {@link Collection#removeIf(Predicate)}
+   *
+   * @param iterable       of items
+   * @param searchFunction a predicate which returns {@code true} for elements to be
+   *                       removed
+   * @param <T> element type
+   * @return {@code iterable} elements that are acceptable to the {@code searchFunction}
+   */
+  public static <T> Iterable<T> findAll(Iterable<T> iterable, Predicate<? super T> searchFunction) {
+    existenceCheck(iterable, new IllegalArgumentException("iterable"));
+    existenceCheck(iterable, new IllegalArgumentException("searchFunction"));
 
     Collection<T> matched = new LinkedList<>();
 
-    for (T element : collection) {
+    for (T element : iterable) {
       if (searchFunction.test(element)) matched.add(element);
     }
 
@@ -68,7 +74,7 @@ public class IterableExtension {
 
     int count = 0;
 
-    for (; iterator.hasNext() && takeCount != count; ) {
+    for (; iterator.hasNext() && count < takeCount; ) {
       takenValues.add(iterator.next());
       count++;
     }

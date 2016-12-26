@@ -3,9 +3,13 @@ package com.fox.encapsulation;
 import com.fox.collection.Tuple;
 
 /**
- * Created by Stephen on 8/5/2016.
+ * An encapsulation - in the vein of {@link java.util.Optional} - for exceptional operations.
+ * This idea was motivated by a need to avoid try-catch code (which makes for inconsistencies in
+ * declaring variables {@code final} in scope
+ *
+ * Created by Stephen on 8/5/2016. Under MIT license (see /LICENSE)
  */
-public class AttemptWithException<RET_TYPE, ERR_TYPE extends Throwable> {
+public final class AttemptWithException<RET_TYPE, ERR_TYPE extends Throwable> {
 
   private final RET_TYPE result;
   private final ERR_TYPE error;
@@ -64,10 +68,23 @@ public class AttemptWithException<RET_TYPE, ERR_TYPE extends Throwable> {
     return withException;
   }
 
-  public static <E extends Throwable> AttemptWithException<Void, E> evaluate(VolatileAction<E> action) {
+  /**
+   * Executes the (potentially) throwing action and encapsulates the success.
+   * When an {@code action} succeeds the void result isn't captured, thus the encapsulating
+   * return value {@link AttemptWithException#getResult()} will be null.
+   * If it fails, you will have an encapsulation of the {@link Throwable}
+   *
+   * @param input to feed into the action
+   * @param action potentially throwing action
+   * @param <T> input type
+   * @param <E> exception type that CAN occur
+   */
+  public static <T, E extends Throwable>
+  AttemptWithException<Void, E> evaluate(T input, VolatileAction<T, E> action) {
     AttemptWithException<Void, E> withException;
     try {
-      withException = new AttemptWithException<>(action.get(), null);
+      action.accept(input);
+      withException = new AttemptWithException<>(null, null);
     } catch (Throwable somethingExceptional) {
       withException = new AttemptWithException<>(null, (E) somethingExceptional);
     }

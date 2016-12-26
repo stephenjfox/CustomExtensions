@@ -7,8 +7,7 @@ import java.util.Arrays;
 import static com.fox.general.Predication.existenceCheck;
 
 /**
- * FIXME (7/10/16): This class is powerful, but could probably be a singleton
- * Static wrapper class for the C_Logger initiative
+ * Static wrapper class for the ConsoleLoggerImplementation initiative
  */
 public class ConsoleLogger {
 
@@ -17,7 +16,7 @@ public class ConsoleLogger {
 
   private static void initLogger() {
     if (log == null) {
-      log = new C_Logger();
+      log = new ConsoleLoggerImplementation();
     }
   }
 
@@ -119,15 +118,12 @@ public class ConsoleLogger {
     log = loggerReplacement;
   }
 
-  // TODO: build a configuration object and set options based on function in the config
-  // TODO: write several methods that match those in the Configuration object
-
   /**
    * Class implementation of an <code>AbstractLogger</code> that writes to standard out.
    */
-  private static class C_Logger extends AbstractLogger {
+  private static class ConsoleLoggerImplementation extends AbstractLogger {
 
-    public C_Logger() {
+    public ConsoleLoggerImplementation() {
       super(System.out, System.err);
     }
 
@@ -153,10 +149,9 @@ public class ConsoleLogger {
     public void printException(Exception ex, @Nullable String text) {
       String userMsg = ( text != null ? text : "" );
       errStream.println("EXCEPTION: " +
-          Arrays.asList(ex.getStackTrace())
-              .stream()
-              .map(StackTraceElement::toString)
-              .reduce((s, s2) -> s.concat("\n" + s2)) + userMsg);
+          Arrays.stream(ex.getStackTrace())
+                .map(StackTraceElement::toString)
+                .reduce((s, s2) -> s.concat("\n" + s2)) + userMsg);
     }
   }
 
