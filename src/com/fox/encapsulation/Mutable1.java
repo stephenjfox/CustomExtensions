@@ -7,32 +7,16 @@ package com.fox.encapsulation;
  *
  * Created by Stephen on 10/13/2016.
  */
-public class Mutable1<T> implements Lockable {
+public class Mutable1<T> extends Mutable<T> {
 
   private static final int MUTATION_ALLOWANCE = 1;
-  private T value;
-  private short mutationCount = 0;
 
   public Mutable1() {
     this(null);
   }
 
   public Mutable1(T value) {
-    this.value = value;
+    super(value, MUTATION_ALLOWANCE);
   }
 
-  @Override
-  public void lock() {
-    mutationCount = MUTATION_ALLOWANCE;
-  }
-
-  public T get() {
-    return value;
-  }
-
-  public void set(T value) {
-    if (MUTATION_ALLOWANCE > mutationCount++) {
-      this.value = value;
-    }
-  }
 }

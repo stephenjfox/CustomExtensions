@@ -24,7 +24,7 @@ public class Mutable1Test {
 
   @Test
   public void getValue() {
-    Mutable1<Integer> mutableInteger = new Mutable1<>(1);
+    Mutable<Integer> mutableInteger = new Mutable1<>(1);
 
     Assert.assertEquals("Should contain a 1", 1, mutableInteger.get().intValue());
   }
